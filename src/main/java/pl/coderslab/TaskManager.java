@@ -24,6 +24,8 @@ public class TaskManager {
         } catch (IOException e) {
             throw new RuntimeException();
         }
+
+        getAction(tasks, fileName);
     }
 
 
@@ -102,9 +104,10 @@ public class TaskManager {
         System.out.println("exit");
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             if (tasks != null) {
-                for (String[] task : tasks) {
-                    fileWriter.append(String.join(",", task));
+                for (int i = 0; i < tasks.length - 1; i++) {
+                    fileWriter.append(String.join(",", tasks[i])).append("\n");
                 }
+                fileWriter.append(String.join(",", tasks[tasks.length - 1]));
             } else {
                 System.out.println("You're saving an empty file.");
             }
