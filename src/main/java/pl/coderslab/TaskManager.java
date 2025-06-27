@@ -10,7 +10,7 @@ public class TaskManager {
 
     public static void main(String[] args) {
         try {
-            readFile("tasks.csv");
+            String[][] tasks = tasks("tasks.csv");
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -19,7 +19,8 @@ public class TaskManager {
         displayOptions(options);
     }
 
-    public static void readFile (String fileName) throws IOException {
+
+    public static String[][] tasks (String fileName) throws IOException {
         Path path = Paths.get(fileName);
         if (Files.exists(path)) {
             String fileContent = Files.readString(path);
@@ -29,8 +30,10 @@ public class TaskManager {
             for (int i = 0; i < rows.length; i++) {
                 tasks[i] = rows[i].split(",");
             }
+            return tasks;
         } else {
             System.out.println("File " + fileName + " not found");
+            return null;
         }
     }
 
@@ -42,4 +45,11 @@ public class TaskManager {
         }
     }
 
+
+    public static void displayTasks (String[][] tasks) {
+        System.out.println("list");
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.println(i + " : " + String.join(" ", tasks[i]));
+        }
+    }
 }
