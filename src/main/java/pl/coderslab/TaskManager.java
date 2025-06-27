@@ -16,7 +16,6 @@ public class TaskManager {
     public static void main(String[] args) {
         String fileName = "tasks.csv";
         String[] options = {"add", "remove", "list", "exit"};
-        displayOptions(options);
         String[][] tasks;
 
         try {
@@ -24,8 +23,6 @@ public class TaskManager {
         } catch (IOException e) {
             throw new RuntimeException();
         }
-
-        getAction(tasks, fileName);
     }
 
 
@@ -42,6 +39,7 @@ public class TaskManager {
             return tasks;
         } else {
             System.out.println("File " + fileName + " not found.");
+            System.exit(0);
             return null;
         }
     }
@@ -115,18 +113,19 @@ public class TaskManager {
         } catch (IOException e) {
             System.out.println("Error writing to file.");
         }
+        System.exit(0);
     }
 
 
-    public static void getAction(String[][] tasks, String fileName) {
+    public static String[][] getAction(String[][] tasks, String fileName) {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         switch (input) {
             case "add":
-                addTask(tasks);
+                tasks = addTask(tasks);
                 break;
             case "remove":
-                removeTask(tasks);
+                tasks = removeTask(tasks);
                 break;
             case "list":
                 displayTasks(tasks);
@@ -138,6 +137,7 @@ public class TaskManager {
                 System.out.println("Please select a correct option.");
                 break;
         }
-
+        return tasks;
     }
+
 }
