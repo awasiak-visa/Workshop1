@@ -3,6 +3,7 @@ package pl.coderslab;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,11 +14,13 @@ import java.util.Scanner;
 public class TaskManager {
 
     public static void main(String[] args) {
+        String fileName = "tasks.csv";
         String[] options = {"add", "remove", "list", "exit"};
         displayOptions(options);
+        String[][] tasks;
 
         try {
-            String[][] tasks = tasks("tasks.csv");
+            tasks = tasks(fileName);
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -92,5 +95,22 @@ public class TaskManager {
             System.out.println("Argument out of bounds.");
         }
         return tasks;
+    }
+
+
+    public static void exitProgram (String[][] tasks, String fileName) {
+        System.out.println("exit");
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
+            if (tasks != null) {
+                for (String[] task : tasks) {
+                    fileWriter.append(String.join(",", task));
+                }
+            } else {
+                System.out.println("You're saving an empty file.");
+            }
+            System.out.println(ConsoleColors.RED + "Bye, bye.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
+        }
     }
 }
