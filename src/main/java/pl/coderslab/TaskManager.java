@@ -14,6 +14,9 @@ public class TaskManager {
         } catch (IOException e) {
             throw new RuntimeException();
         }
+
+        String[] options = {"add", "remove", "list", "exit"};
+        displayOptions(options);
     }
 
     public static void readFile (String fileName) throws IOException {
@@ -30,4 +33,13 @@ public class TaskManager {
             System.out.println("File " + fileName + " not found");
         }
     }
+
+
+    public static void displayOptions (String[] options) {
+        System.out.println(ConsoleColors.BLUE + "Please select an option:");
+        for (String option : options) {
+            System.out.println(ConsoleColors.RESET + option);
+        }
+    }
+
 }
