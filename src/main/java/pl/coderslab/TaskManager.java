@@ -23,6 +23,11 @@ public class TaskManager {
         } catch (IOException e) {
             throw new RuntimeException();
         }
+
+        while (true) {
+            displayOptions(options);
+            tasks = getAction(tasks, fileName);
+        }
     }
 
 
