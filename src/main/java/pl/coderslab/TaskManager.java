@@ -27,7 +27,7 @@ public class TaskManager {
     }
 
 
-    public static String[][] tasks (String fileName) throws IOException {
+    public static String[][] tasks(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         if (Files.exists(path)) {
             String fileContent = Files.readString(path);
@@ -45,7 +45,7 @@ public class TaskManager {
     }
 
 
-    public static void displayOptions (String[] options) {
+    public static void displayOptions(String[] options) {
         System.out.println(ConsoleColors.BLUE + "Please select an option:");
         for (String option : options) {
             System.out.println(ConsoleColors.RESET + option);
@@ -53,7 +53,7 @@ public class TaskManager {
     }
 
 
-    public static void displayTasks (String[][] tasks) {
+    public static void displayTasks(String[][] tasks) {
         System.out.println("list");
         for (int i = 0; i < tasks.length; i++) {
             System.out.println(i + " : " + String.join(" ", tasks[i]));
@@ -61,7 +61,7 @@ public class TaskManager {
     }
 
 
-    public static String[][] addTask (String[][] tasks) {
+    public static String[][] addTask(String[][] tasks) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("add");
         System.out.println("Please add task description. ");
@@ -79,7 +79,7 @@ public class TaskManager {
     }
 
 
-    public static String[][] removeTask (String[][] tasks) {
+    public static String[][] removeTask(String[][] tasks) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("remove");
         System.out.println("Please select number to remove. ");
@@ -98,7 +98,7 @@ public class TaskManager {
     }
 
 
-    public static void exitProgram (String[][] tasks, String fileName) {
+    public static void exitProgram(String[][] tasks, String fileName) {
         System.out.println("exit");
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             if (tasks != null) {
@@ -112,5 +112,29 @@ public class TaskManager {
         } catch (IOException e) {
             System.out.println("Error writing to file.");
         }
+    }
+
+
+    public static void getAction(String[][] tasks, String fileName) {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        switch (input) {
+            case "add":
+                addTask(tasks);
+                break;
+            case "remove":
+                removeTask(tasks);
+                break;
+            case "list":
+                displayTasks(tasks);
+                break;
+            case "exit":
+                exitProgram(tasks, fileName);
+                break;
+            default:
+                System.out.println("Please select a correct option.");
+                break;
+        }
+
     }
 }
