@@ -19,7 +19,7 @@ public class TaskManager {
         String[][] tasks;
 
         try {
-            tasks = tasks(fileName);
+            tasks = loadFile(fileName);
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -31,7 +31,7 @@ public class TaskManager {
     }
 
 
-    public static String[][] tasks(String fileName) throws IOException {
+    public static String[][] loadFile(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         if (Files.exists(path)) {
             String fileContent = Files.readString(path);
